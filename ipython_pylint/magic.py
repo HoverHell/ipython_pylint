@@ -22,7 +22,7 @@ def unload_ipython_extension(ipython):  # pylint: disable=unused-argument
 
 LINT_SETTINGS = dict(
     disable=linter.DEFAULT_DISABLE,
-    message_tpl=linter.DEFAULT_FMT,
+    message_tpl='{line:>3}:{column}: {message-id}: {message} ({symbol})',
     employ_history=True,
     history_messages=False,
     debug=True,
@@ -93,13 +93,16 @@ class Linter(Magics):
             history = self._get_history(ipy) + '\n\n'
             full_code = history + code
             if not settings['history_messages']:
-                min_line = history.count('\n') + 1  # A somewhat tricky '+ 1'. Might be wrong.
+                min_line = history.count('\n')  # possibly off-by-one.
 
         lint_result = linter.validate_code(full_code, disable=settings['disable'])
 
         messages = lint_result['messages']
         if min_line:
-            messages = [message for message in messages if message['line'] >= min_line]
+            messages = [
+                dict(message, line=message['line'] - min_line + 1)
+                for message in messages
+                if message['line'] > min_line]  # possibly off-by-one.
 
         if settings['debug']:
             LINT_DEBUG.update(last_result=dict(
