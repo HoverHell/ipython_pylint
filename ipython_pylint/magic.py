@@ -116,6 +116,8 @@ class Linter(Magics):
                 messages=messages,
             ))
 
+        # TODO: skip the 'pointless-statement' on the last nonempty line
+        # (because ipython)
         if messages:
             print("Lint errors:")
             messages_string = '\n'.join(

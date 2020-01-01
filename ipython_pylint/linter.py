@@ -19,6 +19,9 @@ except ImportError:
 DEFAULT_DISABLE = (
     'missing-docstring',
     'invalid-name',
+    # Skip the messages about skipped messages:
+    'suppressed-message',
+    'locally-disabled',
 )
 # Default effective formatting of the TextFormatter.
 # Unused keys: module, type, obj
