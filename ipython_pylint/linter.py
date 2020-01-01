@@ -9,8 +9,11 @@ from astroid.builder import AstroidBuilder
 from astroid.exceptions import AstroidBuildingException
 import astroid.scoped_nodes
 from pylint.lint import PyLinter
-from pylint.reporters.json import JSONReporter
 from pylint.reporters.text import TextReporter
+try:
+    from pylint.reporters.json import JSONReporter
+except ImportError:
+    from pylint.reporters import JSONReporter
 
 
 DEFAULT_DISABLE = (
