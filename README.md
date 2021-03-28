@@ -34,5 +34,7 @@ See `%%lint?` for the documentation.
 
 ## See also ##
 
-See also: pycodestyle (pep8) and flake8 checker:
-https://github.com/mattijn/pycodestyle_magic
+See also:
+
+  * pycodestyle (pep8) and flake8 checker: https://github.com/mattijn/pycodestyle_magic
+  * mypy types checker: https://github.com/moshez/mypy_ipython
